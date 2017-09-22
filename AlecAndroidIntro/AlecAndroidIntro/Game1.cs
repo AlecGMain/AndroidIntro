@@ -11,7 +11,8 @@ namespace AlecAndroidIntro
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
+        Sprite ground;
+        
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -44,6 +45,7 @@ namespace AlecAndroidIntro
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            ground = new Sprite(Content.Load<Texture2D>("ground"), new Vector2(0, 430), Color.White);
 
             // TODO: use this.Content to load your game content here
         }
@@ -81,8 +83,11 @@ namespace AlecAndroidIntro
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            ground.Draw(spriteBatch);
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }
 }
+
