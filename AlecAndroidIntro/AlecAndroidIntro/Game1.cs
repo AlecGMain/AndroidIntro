@@ -19,8 +19,8 @@ namespace AlecAndroidIntro
             Content.RootDirectory = "Content";
 
             graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 480;
+            //graphics.PreferredBackBufferWidth = 800;
+            //graphics.PreferredBackBufferHeight = 480;
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
         }
 
@@ -45,8 +45,8 @@ namespace AlecAndroidIntro
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            ground = new Sprite(Content.Load<Texture2D>("ground"), new Vector2(0, 430), Color.White);
-
+            ground = new Sprite(Content.Load<Texture2D>("ground"), new Vector2(0, GraphicsDevice.Viewport.Height - 50), Color.White);
+            
             // TODO: use this.Content to load your game content here
         }
 
