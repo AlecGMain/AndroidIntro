@@ -31,6 +31,12 @@ namespace AlecAndroidIntro
         {
             hitbox = new Rectangle(new Point((int)position.X, (int)position.Y), new Point(image.Height, image.Width));
         }
+
+        internal void Update()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(image, position, color);

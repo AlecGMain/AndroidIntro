@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace AlecAndroidIntro
 {
@@ -12,7 +13,8 @@ namespace AlecAndroidIntro
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Sprite ground;
-        
+        Dino dino;
+        TouchCollection touches;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -46,7 +48,8 @@ namespace AlecAndroidIntro
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ground = new Sprite(Content.Load<Texture2D>("ground"), new Vector2(0, GraphicsDevice.Viewport.Height - 50), Color.White);
-            
+            dino = new Dino(Content.Load<Texture2D>("dinosaur"), new Vector2(0, GraphicsDevice.Viewport.Height - 50), Color.White, 20, 100, 50);
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -67,9 +70,16 @@ namespace AlecAndroidIntro
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            {
                 Exit();
+            }
+
+
 
             // TODO: Add your update logic here
+            touches = TouchPanel.GetState();
+            ground.Update(gameTime);
+            dino.Update(touches, gameTime, GraphicsDevice.Viewport);
 
             base.Update(gameTime);
         }
@@ -85,6 +95,7 @@ namespace AlecAndroidIntro
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             ground.Draw(spriteBatch);
+            dino.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }

@@ -61,3 +61,15 @@
 /processorParam:TextureFormat=Color
 /build:pterodactyl.PNG
 
+#begin Jump.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Jump.mp3
+
+#begin Death.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Death.wav
+
