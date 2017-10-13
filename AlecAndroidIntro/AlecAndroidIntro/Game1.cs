@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -15,6 +16,8 @@ namespace AlecAndroidIntro
         Sprite ground;
         Dino dino;
         TouchCollection touches;
+        SoundEffect footstep;
+        SoundEffectInstance footstepInstance;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -26,7 +29,7 @@ namespace AlecAndroidIntro
             graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
         }
 
-        /// <summary>
+        /// <summary>C:\Users\AlecGeoSimonian\Documents\GitHub\AndroidIntro\AlecAndroidIntro\AlecAndroidIntro\Assets\
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
         /// related content.  Calling base.Initialize will enumerate through any components
@@ -48,8 +51,8 @@ namespace AlecAndroidIntro
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ground = new Sprite(Content.Load<Texture2D>("ground"), new Vector2(0, GraphicsDevice.Viewport.Height - 50), Color.White);
-            dino = new Dino(Content.Load<Texture2D>("dinosaur"), new Vector2(0, GraphicsDevice.Viewport.Height - 50), Color.White, 20, 100, 50);
-
+            dino = new Dino(Content.Load<Texture2D>("dinosaur"), new Vector2(0, GraphicsDevice.Viewport.Height - 50 -279), Color.White, 20, 100, 50);
+            
             // TODO: use this.Content to load your game content here
         }
 
