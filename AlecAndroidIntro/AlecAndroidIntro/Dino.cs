@@ -22,9 +22,10 @@ namespace AlecAndroidIntro
         float speed;
         float gravity = .5f;
         bool isJumping = false;
-
+        Random r;
         int height;
         int fall;
+
         //keeps track of how much time has passed in our game
         TimeSpan elapsedTime;
         //how long we want to wait to do something

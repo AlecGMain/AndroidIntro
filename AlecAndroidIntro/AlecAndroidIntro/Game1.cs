@@ -3,6 +3,9 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace AlecAndroidIntro
 {
@@ -17,6 +20,8 @@ namespace AlecAndroidIntro
         Dino dino;
         TouchCollection touches;
         SoundEffect footstep;
+        Random r;
+        List<Sprite> enemies = new List<Sprite>();
         SoundEffectInstance footstepInstance;
         public Game1()
         {
@@ -48,7 +53,14 @@ namespace AlecAndroidIntro
         /// </summary>
         protected override void LoadContent()
         {
+            r = new Random();
             // Create a new SpriteBatch, which can be used to draw textures.
+
+            for(int i = 0; i < 200; i++)
+            {
+                enemies.Add(new Sprite(Content.Load<Texture2D>("cactus"), new Vector2(r.Next(400, 100000), GraphicsDevice.Viewport.Height - 310), Color.White));
+            }
+                
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ground = new Sprite(Content.Load<Texture2D>("ground"), new Vector2(0, GraphicsDevice.Viewport.Height - 50), Color.White);
             dino = new Dino(Content.Load<Texture2D>("dinosaur"), new Vector2(0, GraphicsDevice.Viewport.Height - 50 -279), Color.White, 20, 100, 50);
@@ -97,6 +109,10 @@ namespace AlecAndroidIntro
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+            foreach (Sprite sprite in enemies)
+            {
+                sprite.Draw(spriteBatch);
+            }
             ground.Draw(spriteBatch);
             dino.Draw(spriteBatch);
             spriteBatch.End();
