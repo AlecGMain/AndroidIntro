@@ -23,6 +23,10 @@ namespace AlecAndroidIntro
         Random r;
         List<Sprite> enemies = new List<Sprite>();
         SoundEffectInstance footstepInstance;
+
+        TimeSpan generateTime = TimeSpan.FromMilliseconds(1500);
+        TimeSpan elapsedGenerateTime = TimeSpan.Zero;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -56,10 +60,19 @@ namespace AlecAndroidIntro
             r = new Random();
             // Create a new SpriteBatch, which can be used to draw textures.
 
-            for(int i = 0; i < 200; i++)
-            {
-                enemies.Add(new Sprite(Content.Load<Texture2D>("cactus"), new Vector2(r.Next(400, 100000), GraphicsDevice.Viewport.Height - 310), Color.White));
-            }
+            //for(int i = 0; i < 20000; i++)
+            //{
+            //    Sprite sprite = new Sprite(Content.Load<Texture2D>("cactus"), new Vector2(r.Next(4000, 10000000), GraphicsDevice.Viewport.Height - 310), Color.White);
+            //    foreach(Sprite enemy in enemies)
+            //    {
+            //        if(sprite.hitbox.Intersects(enemy.hitbox))
+            //        {
+            //            sprite.position.X = r.Next(4000, 10000000);
+            //        }
+            //    }
+            //    enemies.Add(sprite);
+            //}
+
                 
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ground = new Sprite(Content.Load<Texture2D>("ground"), new Vector2(0, GraphicsDevice.Viewport.Height - 50), Color.White);
@@ -89,8 +102,20 @@ namespace AlecAndroidIntro
                 Exit();
             }
 
+            elapsedGenerateTime += gameTime.ElapsedGameTime;
 
+            if (elapsedGenerateTime >= generateTime)
+            {
+                Sprite sprite = new Sprite(Content.Load<Texture2D>("cactus"), new Vector2(GraphicsDevice.Viewport.Width + 100, GraphicsDevice.Viewport.Height - 310), Color.White);
+                enemies.Add(sprite);
+                generateTime = TimeSpan.FromMilliseconds(r.Next(987, 2789));
+                elapsedGenerateTime = TimeSpan.Zero;
+            }
 
+            foreach (Sprite enemy in enemies)
+            {
+                enemy.position.X -= 10;
+            }
             // TODO: Add your update logic here
             touches = TouchPanel.GetState();
             ground.Update(gameTime);
