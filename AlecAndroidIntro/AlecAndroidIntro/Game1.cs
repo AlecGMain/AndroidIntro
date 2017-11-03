@@ -73,11 +73,11 @@ namespace AlecAndroidIntro
             //    enemies.Add(sprite);
             //}
 
-                
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ground = new Sprite(Content.Load<Texture2D>("ground"), new Vector2(0, GraphicsDevice.Viewport.Height - 50), Color.White);
-            dino = new Dino(Content.Load<Texture2D>("dinosaur"), new Vector2(0, GraphicsDevice.Viewport.Height - 50 -279), Color.White, 20, 100, 50);
-            
+            dino = new Dino(Content.Load<Texture2D>("dinosaur"), new Vector2(0, GraphicsDevice.Viewport.Height - 50 - 279), Color.White, 20, 100, 50);
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -110,12 +110,22 @@ namespace AlecAndroidIntro
                 enemies.Add(sprite);
                 generateTime = TimeSpan.FromMilliseconds(r.Next(987, 2789));
                 elapsedGenerateTime = TimeSpan.Zero;
+
             }
 
             foreach (Sprite enemy in enemies)
             {
+                enemy.Update(gameTime);
                 enemy.position.X -= 10;
+                if (dino.hitbox.Intersects(enemy.hitbox))
+                {
+                    while (true)
+                    {
+
+                    }
+                }
             }
+
             // TODO: Add your update logic here
             touches = TouchPanel.GetState();
             ground.Update(gameTime);
@@ -138,8 +148,11 @@ namespace AlecAndroidIntro
             {
                 sprite.Draw(spriteBatch);
             }
-            ground.Draw(spriteBatch);
+
+            ground.Draw(spriteBatch);            
+
             dino.Draw(spriteBatch);
+
             spriteBatch.End();
             base.Draw(gameTime);
         }

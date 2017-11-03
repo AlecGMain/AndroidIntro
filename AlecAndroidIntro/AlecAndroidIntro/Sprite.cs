@@ -25,11 +25,11 @@ namespace AlecAndroidIntro
             image = Image;
             position = Position;
             color = Color;
-            hitbox = new Rectangle((int)position.X, (int)position.Y, image.Height, image.Width);
+            hitbox = new Rectangle((int)position.X, (int)position.Y, image.Width, image.Height);
         }
         public void Update(GameTime gametime)
         {
-            hitbox = new Rectangle(new Point((int)position.X, (int)position.Y), new Point(image.Height, image.Width));
+            hitbox = new Rectangle(new Point((int)position.X, (int)position.Y), new Point(image.Width, image.Height));
         }
 
         internal void Update()
@@ -40,6 +40,14 @@ namespace AlecAndroidIntro
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(image, position, color);
+        }
+
+        public void DrawHitBox(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice)
+        {
+            Texture2D pixel = new Texture2D(graphicsDevice, 1, 1);
+            pixel.SetData(new Color[] { Color.White });
+
+            spriteBatch.Draw(pixel, hitbox, new Color(Color.Red, .5f));
         }
     }
 
