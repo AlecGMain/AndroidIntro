@@ -23,10 +23,11 @@ namespace AlecAndroidIntro
         Random r;
         List<Sprite> enemies = new List<Sprite>();
         SoundEffectInstance footstepInstance;
-
+        SpriteFont font;
         TimeSpan generateTime = TimeSpan.FromMilliseconds(1500);
         TimeSpan elapsedGenerateTime = TimeSpan.Zero;
-
+        int score;
+        bool dead = false;
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -77,7 +78,8 @@ namespace AlecAndroidIntro
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ground = new Sprite(Content.Load<Texture2D>("ground"), new Vector2(0, GraphicsDevice.Viewport.Height - 50), Color.White);
             dino = new Dino(Content.Load<Texture2D>("dinosaur"), new Vector2(0, GraphicsDevice.Viewport.Height - 50 - 279), Color.White, 20, 100, 50);
-
+            font = Content.Load<SpriteFont>("spriteFont");
+        
             // TODO: use this.Content to load your game content here
         }
 
@@ -109,6 +111,7 @@ namespace AlecAndroidIntro
                 Sprite sprite = new Sprite(Content.Load<Texture2D>("cactus"), new Vector2(GraphicsDevice.Viewport.Width + 100, GraphicsDevice.Viewport.Height - 310), Color.White);
                 enemies.Add(sprite);
                 generateTime = TimeSpan.FromMilliseconds(r.Next(987, 2789));
+                score++;
                 elapsedGenerateTime = TimeSpan.Zero;
 
             }
@@ -119,18 +122,23 @@ namespace AlecAndroidIntro
                 enemy.position.X -= 10;
                 if (dino.hitbox.Intersects(enemy.hitbox))
                 {
-                    while (true)
-                    {
-
-                    }
+                    // This is a loss. 
+                    // Switch to lose mode
+                    // 
+                    dead = true;
                 }
             }
+
+
 
             // TODO: Add your update logic here
             touches = TouchPanel.GetState();
             ground.Update(gameTime);
             dino.Update(touches, gameTime, GraphicsDevice.Viewport);
+            if (dead == true)
+            {
 
+            }
             base.Update(gameTime);
         }
 
@@ -147,10 +155,27 @@ namespace AlecAndroidIntro
             foreach (Sprite sprite in enemies)
             {
                 sprite.Draw(spriteBatch);
+                
             }
-
+            spriteBatch.DrawString(font, $"Score: {score}", new Vector2(50, 50), Color.YellowGreen);
             ground.Draw(spriteBatch);            
+         
+                if (dead == true)
+                {
+                    spriteBatch.DrawString(font, "RESTART", new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2), Color.Red);
+                while (dead == true)
+                {
 
+
+                    if (touches.Count > 0)
+                    {
+                        score = 0;
+                        dead = false;
+                        enemies.Clear();
+                    }
+                }
+                }
+            
             dino.Draw(spriteBatch);
 
             spriteBatch.End();
